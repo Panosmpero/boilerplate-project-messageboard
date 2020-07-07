@@ -12,10 +12,12 @@ const getThreadsArray = async (req, res) => {
 
     let t = await Promise.all(threads.map(async (thread) => {
       thread = thread.toObject();
-      let replies = await Reply.find({ thread: thread._id }).sort("-created_on").limit(3);
+      let replies = await Reply.find({ thread: thread._id }).sort("-created_on");
       replies = replies.map(reply => reply.toObject());
       let replycount = replies.length;
-      Object.assign(thread, {replycount, replies});
+      replies = replies.slice(0, 3);
+      let hiddenCount = replycount - replies.length;
+      Object.assign(thread, {replycount, hiddenCount, replies});
       return thread;
     })); 
 
