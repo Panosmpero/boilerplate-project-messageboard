@@ -16,12 +16,10 @@ const createThread = async (req, res) => {
     console.log(b)
 
     let thread = new Thread({ board: b, text, delete_password });
-    let newThread = await thread.save();
-
-    console.log(newThread)
+    let newThread = await thread.save();    
 
     if (newThread) {
-      console.log(newThread);
+      console.log("New thread created.");
       res.redirect(301, `/b/${board}`)
     } else {
       console.log("New thread failed.");
@@ -46,10 +44,9 @@ const createReply = async (req, res) => {
       { bumped_on: new Date() },
       { new: true, upsert: true }
     );
-    console.log(thread)
+    
     let reply = new Reply({ thread, text, delete_password });
-    let newReply = await reply.save();
-    console.log(newReply);
+    let newReply = await reply.save(); 
 
     if (newReply) {
       console.log("New reply created.");

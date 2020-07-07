@@ -19,7 +19,7 @@ const getThreadsArray = async (req, res) => {
       return thread;
     })); 
 
-    console.log("replies thread: ", t);
+    // console.log("threads: ", t);
 
       // .populate({
       //   path: "threads",
@@ -34,7 +34,7 @@ const getThreadsArray = async (req, res) => {
     
     if (t) {
       console.log("Get 10 latest threads success");
-      res.json(t);
+      res.status(200).json(t);
     } else {
       console.log("Get 10 latest threads failure");
       res.status(400).send("Fail")
@@ -50,12 +50,12 @@ const getEntireThread = async (req, res) => {
   try {
     let { board } = req.params;
     let { thread_id } = req.query;
-  
+    
     let b = await Board.findOne({ name: board });
   
     if (b) {
       let thread = await Thread.findOne({ _id: thread_id });
-  
+      
       if (thread) {
         let replies = await Reply.find({ thread });
   
@@ -85,8 +85,6 @@ const getEntireThread = async (req, res) => {
     console.log("Error getting: " + error);
     res.status(400);
   }
-
-
 };
 
 module.exports = { getThreadsArray, getEntireThread };

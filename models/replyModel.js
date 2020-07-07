@@ -24,6 +24,7 @@ replySchema.set("toObject", {
     delete ret.__v;
     delete ret.delete_password;
     delete ret.reported;
+    delete ret.thread;
   }
 });
 

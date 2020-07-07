@@ -14,7 +14,7 @@ const reportThread = async (req, res) => {
       { reported: true },
       { new: true }
     );  
-  
+    
     if (thread) {
       console.log("Thread reported.");
       res.status(200).send("Thread reported.");
